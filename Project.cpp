@@ -1,8 +1,10 @@
-﻿#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include <string>
 #include <vector>
 #include <ctime>
 #include <Windows.h>
+#include <fstream>
 using namespace std;
 
 class LOG {
@@ -10,16 +12,26 @@ class LOG {
 public:
 	LOG& operator<<(const string& s) {
 		v.push_back(s);
-		time_t result = time(nullptr);
-		SYSTEMTIME curTime;	
-		GetLocalTime(&curTime);
-		cout << curTime.wHour << ":"
-			<< curTime.wMinute << ":"
-			<< curTime.wSecond << "     " << s << endl;
-		for (auto e : v) {
-			cout << e << endl;
-		}
+		
 		return *this;
+	}
+	void send() {
+		SYSTEMTIME Time;
+		GetLocalTime(&Time);
+
+
+		ofstream out;
+		out.open("log.txt", ios::app);
+
+		for (auto e : v) {
+			out << Time.wYear << "." << Time.wMonth << "." << Time.wDay << "\t"
+				<< Time.wHour << "." << Time.wMinute << "." << Time.wSecond << "\t" << "\t" << e << endl;
+		}
+	}
+	void clear() {
+		ofstream out;
+		out.open("log.txt");
+
 	}
 };
 
@@ -27,7 +39,6 @@ public:
 int main() {
 	LOG a;
 	a << "Hello, World!";
-	a << "Hello, World!";
-	a << "Hello, World!";
-	
+	a.clear();
+	a.send();
 }
