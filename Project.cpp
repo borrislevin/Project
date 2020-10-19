@@ -7,8 +7,10 @@
 #include <filesystem>
 using namespace std;
 
+
 class LOG {
 	vector<string> v;
+	vector<string> v2;
 public:
 	LOG& operator<<(const string& s) {
 		v.push_back(s);		
@@ -45,7 +47,6 @@ public:
 int main() {
 	LOG a;
 	int b;
-	a.clear();
 	a << "Hello, World!";
 	a << "Hello, World!2";
 	a << "Hello, World!3";
