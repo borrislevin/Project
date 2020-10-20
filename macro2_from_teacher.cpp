@@ -1,0 +1,1 @@
+#include <iostream>using namespace std;class Sample {public:	Sample& test() {		return *this;	}	Sample& operator<<(int value) {		printf("%d", value);		return *this;	}	Sample& operator<<(const std::string& message) {		printf("%s");		return *this;	}};Sample sample;int main() {	sample.test() << 42;//<< "hello";}

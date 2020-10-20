@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <fstream>
 #include <filesystem>
+#include "time.h"
 using namespace std;
 
 /*
@@ -20,15 +21,9 @@ using namespace std;
 5.로깅을 날짜별 시간별로 다른 파일로 기록할 것.
 	=> TRY
 6.로그 파일이 지정된 크기를 넘어설 경우, 자동으로 다른 파일에 기록할 수 있어야 한다.
-	=> TRY
-*/
+	=> TRY/
 
-#define year time.wYear
-#define mon time.wMonth
-#define day time.wDay 
-#define hour time.wHour 
-#define min time.wMinute 
-#define sec time.wSecond 
+
 
 class LOG {
 	vector<string> v;

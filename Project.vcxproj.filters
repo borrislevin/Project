@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="macro.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="file io.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -27,11 +24,28 @@
     <ClCompile Include="Project_v0.1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="macro2.cpp">
+    <ClCompile Include="Project_v0.2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="testtttt.cpp">
+    <ClCompile Include="macro3_from_teacher.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="macro2_from_teacher.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Project_v0.3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="macro_from_teacher.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Project_v0.4.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="time.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
