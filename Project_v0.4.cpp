@@ -27,12 +27,12 @@ class Logger {
 	std::vector<std::string> vs2;			// 함수명
 	std::vector<int> vl;					// 라인넘버
 	int cnt = 0;							// 로그 갯수 cnt
-	std::string fn;
+	std::string fn;							// 파일 이름
 
 public:
 
-	void log(std::string s, std::string func, int line) {
-		vs1.push_back(s);
+	void log(std::string file, std::string func, int line) {
+		vs1.push_back(file);
 		vs2.push_back(func);
 		vl.push_back(line);
 		GetLocalTime(&time);

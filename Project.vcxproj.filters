@@ -27,19 +27,16 @@
     <ClCompile Include="Project_v0.2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="macro3_from_teacher.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="macro2_from_teacher.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Project_v0.3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="macro_from_teacher.cpp">
+    <ClCompile Include="Project_v0.4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Project_v0.4.cpp">
+    <ClCompile Include="Project_v0.5.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="새 폴더\macro3_from_teacher.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

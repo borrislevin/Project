@@ -1,0 +1,10 @@
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	76
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	77
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	78
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	79
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	80
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	76
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	77
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	78
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	79
+c:\users\boris\source\repos\project\project_v0.4.cpp	main	80
