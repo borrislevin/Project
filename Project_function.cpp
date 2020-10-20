@@ -23,30 +23,31 @@ using namespace std;
 	=> TRY
 */
 
+#define year time.wYear
+#define mon time.wMonth
+#define day time.wDay 
+#define hour time.wHour 
+#define min time.wMinute 
+#define sec time.wSecond 
 
 class LOG {
 	vector<string> v;
-	vector<string> v2;
+	string addr;
 public:
 	LOG& operator<<(const string& s) {
 		v.push_back(s);		
 		return *this;
 	}
-	void TimetoString() {
-		SYSTEMTIME Time;
-		GetLocalTime(&Time);
-		cout << Time.wYear+Time.wDay;
-		
-	}
 	void send() {
-		SYSTEMTIME Time;
-		GetLocalTime(&Time);
+		SYSTEMTIME time;
+		GetLocalTime(&time);
+		addr = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_log.txt";
 		ofstream out;
-		out.open("log.txt", ios::app);
+		out.open(addr, ios::app);
 
-		for (auto e : v) {	// string으로 만들면 어떨까
-			cout << Time.wYear << "." << Time.wMonth << "." << Time.wDay << "\t"
-				<< Time.wHour << "." << Time.wMinute << "." << Time.wSecond << "\t" 
+		for (auto e : v) {
+			out << year << "." << mon << "." << day << "\t"
+				<< hour << "." << min << "." << sec << "\t" 
 				<<__FILE__ <<"\t"<< __LINE__
 				<< "\t" << e << endl; 
 		}
@@ -66,18 +67,14 @@ public:
 
 int main() {
 	LOG a;
-
 	a << "Hello, World!";
-	a << "Hello, World!2";
-	a << "Hello, World!3";
-	a << "Hello, World!4";
 	a.send();
-	a.TimetoString();
+}
 	/*
 	int b;
 	b = a.GetFilesize();
 	cout << b;*/
-}
+
 
 /* 
 >>현재 경로 구하는 함수

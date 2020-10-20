@@ -12,10 +12,8 @@ using namespace std;
 
 #define LOG(lvl) lvl::call(__func__,__LINE__)
 
-class Msg {
-	
-	virtual void call() = 0;
-	
+class Msg {	
+	virtual void call() = 0;	
 };
 
 class INFO :public Msg {

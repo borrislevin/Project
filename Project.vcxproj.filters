@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="macro.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="file io.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Project_v0.1.cpp">
+    <ClCompile Include="Project_only macro.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Project_function.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
