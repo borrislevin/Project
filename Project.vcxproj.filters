@@ -27,5 +27,11 @@
     <ClCompile Include="Project_v0.1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="macro2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="testtttt.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,22 +33,29 @@ using namespace std;
 class LOG {
 	vector<string> v;
 	SYSTEMTIME time;
-	string addr = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_log.txt";	
+	string fn;
 public:
 	LOG() {
 		GetLocalTime(&time);
+		fn= to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_log.txt";
 	}
 	LOG& operator<<(const string& s) {
-		v.push_back(s);		
+		v.push_back(s);
 		return *this;
 	}
+	void PathChange() {
+		string newaddr;
+		cout << "새 경로를 입력하세요: " << endl;
+		cin >> newaddr;
+	}
+	
 	void send() {
 		ofstream out;
-		out.open(addr, ios::app);
+		out.open("c:\\log.txt", ios::out);
 
 		for (auto e : v) {
 			out << year << "." << mon << "." << day << "\t"
-				<< hour << "." << min << "." << sec << "\t" 
+				<< hour << "." << min << "." << sec << "\t"		
 				<<__FILE__ <<"\t"<< __LINE__
 				<< "\t" << e << endl; 
 		}

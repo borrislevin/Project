@@ -1,0 +1,1 @@
+#include <iostream>class Sample {public:	Sample& test() {		return *this;	}	Sample& operator<<(int value) {		printf("%d", value);		return *this;	}	};	int main() {		Sample sample;		sample.test() << 42; //<< "hello";	}

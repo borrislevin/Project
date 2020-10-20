@@ -11,20 +11,21 @@
 #include <filesystem>
 using namespace std;
 
-#define LOG(lvl) lvl::call(__func__,__LINE__)
+#define LOG(severity) COMPACT_GOOGLE_LOG_ ## severity
+#define COMPACT_GOOGLE_LOG_INFO google::LogMessage( \
+		 __FILE__, __LINE__)
 
-class Msg {	
-	virtual void call() = 0;	
-};
-
-class INFO :public Msg {
-	vector<string> v;
+class google {
 public:
-	static void call(const char* func, int line) {
-		printf("%s:%d] INFO LOG", func, line);
-	}	
+	static google& LogMessage(const char* file, int line) {
+		printf("%s:%d] INFO LOG", file, line);
+		return *this; // static 안쓰면 호출이 안되고 static 빼면 this 사용 불가
+	}
+	void operator<<(int value) {		printf("%d", value);		
+	}
 };
 
 int main() {
 	LOG(INFO);
+	LOG(INFO) << 5;
 }
