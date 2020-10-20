@@ -32,16 +32,17 @@ using namespace std;
 
 class LOG {
 	vector<string> v;
-	string addr;
+	SYSTEMTIME time;
+	string addr = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_log.txt";	
 public:
+	LOG() {
+		GetLocalTime(&time);
+	}
 	LOG& operator<<(const string& s) {
 		v.push_back(s);		
 		return *this;
 	}
 	void send() {
-		SYSTEMTIME time;
-		GetLocalTime(&time);
-		addr = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_log.txt";
 		ofstream out;
 		out.open(addr, ios::app);
 

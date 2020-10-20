@@ -1,6 +1,7 @@
 // 1. 메세지 전달은 못하겠다.
 // 2. LOG(INFO), LOG(WARNING) 만 사용하고 나머지 기능 구현하자 - ok
 // 3. 날짜 구현
+
 #include <iostream>
 #include <string>
 #include <vector>

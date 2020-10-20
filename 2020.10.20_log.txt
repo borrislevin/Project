@@ -1,2 +1,0 @@
-2020.10.20	10.53.36	c:\users\m\source\repos\project\project_function.cpp	53	Hello, World!
-2020.10.20	10.55.40	c:\users\m\source\repos\project\project_function.cpp	51	Hello, World!
