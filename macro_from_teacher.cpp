@@ -25,6 +25,7 @@ int main() {
 
 	LOG("Hello World!");
 	LOG("Program end!");
+	LOG("Hello World!");
 	//log(__func__, __LINE__, "Hello world");
 	//log(__func__, __LINE__, "program end");
 	/*printf("%lf\n", 3.14);
