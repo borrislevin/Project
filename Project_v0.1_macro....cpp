@@ -1,7 +1,7 @@
 //LOG(INFO) SEVERITY, MSG 호출까지 구현
 
 #include <iostream>
-using namespace std;]
+using namespace std;
 
 #define LOG(severity) severity::call()
 
@@ -11,7 +11,7 @@ public:
 		cout << "test";
 	}
 	void operator<<(string s) {
-		printf("test");
+		printf("<< test");
 	}
 };
 
@@ -21,5 +21,5 @@ public:
 int main() {
 
 	LOG(INFO);
-	LOG(INFO) << "testtt";
+	// LOG(INFO) << "testtt";
 }
