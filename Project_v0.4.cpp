@@ -13,65 +13,71 @@
 #define CLEAR(severity) severity.clear();
 #define PRINT(severity) severity.print();
 
-using namespace std;
 
-int GetFilesize(string s) {		// 파일크기 측정 함수
+int GetFileSize(std::string s) {			// 파일크기 측정 함수
 	std::ifstream in_file(s, std::ios::binary);
 	in_file.seekg(0, std::ios::end);
 	return in_file.tellg();
 }
 
 class Logger {
+
 	SYSTEMTIME time;
-	vector<string> vs1;			// 파일명
-	vector<string> vs2;			// 함수명
-	vector<int> vl;				// 라인넘버
-	int cnt = 0;				// 로그 갯수 cnt
-	string fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";
+	std::vector<std::string> vs1;			// 파일명
+	std::vector<std::string> vs2;			// 함수명
+	std::vector<int> vl;					// 라인넘버
+	int cnt = 0;							// 로그 갯수 cnt
+	std::string fn;
+
 public:
-	void log(string s,const char* func, int line) {
+
+	void log(std::string s, std::string func, int line) {
 		vs1.push_back(s);
 		vs2.push_back(func);
 		vl.push_back(line);
 		GetLocalTime(&time);
-		fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";
+		fn = std::to_string(year) + '.' + std::to_string(mon) + '.' + std::to_string(day) + "_v0.4_log.txt";
 		cnt += 1;
 	}
+
 	void send() {
-		ofstream out;
+		std::ofstream out;
 		int i = 1;
-		while (1) {				// 사이즈 1kb 이상이면 뒤에 (i)를 붙여서 txt를 새로 만든다.
-			int sz = GetFilesize(fn);
-				if (sz < 1000) break; 
-				else{
-					fn.replace(19, 10, "");
-					fn +=  +"(" + to_string(i) + ").txt";
-					++i;
-				}
+		while (1) {								// 사이즈 1kb 이상이면 뒤에 (i)를 붙여서 txt를 새로 만든다.
+			int sz = GetFileSize(fn);
+			if (sz < 1000) break;
+			else {
+				fn.replace(19, 10, "");
+				fn += +"(" + std::to_string(i) + ").txt";
+				++i;
 			}
-		out.open(fn, ios::app);			// 파일에 출력하는 함수
+		}
+		out.open(fn, std::ios::app);			// 파일에 출력하는 함수
 		for (int i = 0; i < cnt; i++) {
-			out << vs1[i] << "\t" << vs2[i] << "\t" << vl[i] << endl;
-		}	
+			out << vs1[i] << "\t" << vs2[i] << "\t" << vl[i] << std::endl;
+		}
+		out.close();
 	}
+
 	void clear() { // 로그 txt 파일을 초기화 한다
-		ofstream out;
-		out.open(fn, ios::out);
+		std::ofstream out;
+		out.open(fn, std::ios::out);
+		out.close();
 	}
 };
 
-Logger INFO;
-Logger WARN;
-Logger ERR;
-Logger FATAL;
+Logger info;
+Logger warn;
+Logger err;
+Logger fatal;
 
 
 int main() {
-	LOG(INFO);
-	LOG(INFO);
-	LOG(INFO);
-	LOG(INFO);
-	LOG(INFO);
-	OUT(INFO);
+	LOG(info);
+	LOG(info);
+	LOG(info);
+	LOG(info);
+	LOG(info);
+	OUT(info);
 }
 
