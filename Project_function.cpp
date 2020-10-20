@@ -81,9 +81,6 @@ int main() {
 
 /* 
 >>현재 경로 구하는 함수
-char path[128];
-if (GetCurrentDirectoryA(128, path) > 0) {
-		printf("Working Directory : %s\n", path);
 
 >>파일 크기 구하는 함수
 b = a.GetFilesize();

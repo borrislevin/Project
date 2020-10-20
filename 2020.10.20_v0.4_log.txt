@@ -1,14 +1,8 @@
-c:\users\m\source\repos\project\project_v0.4.cpp	main	48
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
-c:\users\m\source\repos\project\project_v0.4.cpp	main	49
+c:\users\m\source\repos\project\project_v0.4.cpp	main	54
+c:\users\m\source\repos\project\project_v0.4.cpp	main	55
+c:\users\m\source\repos\project\project_v0.4.cpp	main	69
+c:\users\m\source\repos\project\project_v0.4.cpp	main	70
+c:\users\m\source\repos\project\project_v0.4.cpp	main	71
+c:\users\m\source\repos\project\project_v0.4.cpp	main	72
+c:\users\m\source\repos\project\project_v0.4.cpp	main	73
+fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";fn = to_string(year) + '.' + to_string(mon) + '.' + to_string(day) + "_v0.4_log.txt";
