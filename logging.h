@@ -15,7 +15,6 @@ enum Level {
 };
 
 
-
 class Logger {
 public:
 	virtual ~Logger() {}
@@ -24,6 +23,7 @@ public:
 	void write(const std::string& message) {
 		std::ofstream out;
 		std::string temp = filename + ".log";
+		std::string temp2 = filename + "(1).log";
 		int i = 1;
 		while (1) {										// 사이즈 limit 이상이면 뒤에 (i)를 붙여서 txt를 새로 만든다.
 			filesize = GetFileSize(temp);
@@ -31,15 +31,15 @@ public:
 				break;
 			}
 			else {
-				std::string tem = "_(" + std::to_string(i) + ").log";
-				temp.replace(temp.end()-4, temp.end(),tem);				
+				std::string tem2 = "_(" + std::to_string(i) + ").log";
+				temp.replace(temp.end() - 4, temp.end(), tem2);
 				++i;
-			}	
+			}
 		}
 		out.open(temp, std::ios::app);
-		std::string temp2 = getLogLevel() + location + getTimestamp() + " " + message;
-		out <<temp2 << std::endl;
-		this->information.push_back(temp2);
+		std::string tempinfo = getLogLevel() + location + getTimestamp() + " " + message;
+		out <<tempinfo << std::endl;
+		this->information.push_back(tempinfo);
 		out.close();
 	}
 
@@ -50,24 +50,24 @@ public:
 		return *loggers[level];
 	}
 
-	Logger& setCurrentContext(const std::string& file, const std::string& func, int l) {
+	Logger& setCurrentContext(const std::string& file, const std::string& func, int l) {	// 위치 정보
 		location = file + " " + func + "_" + "line:" + std::to_string(l) + " ";
 		cnt++;
 		return *this;
 	}
 
-	int GetFileSize(std::string s) {
+	int GetFileSize(std::string s) {					// 파일 크기
 		std::ifstream in_file(s, std::ios::binary);
 		in_file.seekg(0, std::ios::end);
 		return in_file.tellg();
 	}
 
-	void show(const std::string& message) {
+	void show(const std::string& message) {				
 		std::cout << this->getLogLevel()<<location<<getTimestamp()<<"] "<<message<< std::endl;
 	}
 
 	void showAll() {		
-		for (int i = 0; i < cnt-1; i++) {
+		for (int i = 0; i < cnt-1; i++) {				
 			std::cout << information[i] << std::endl;
 		}
 	}
@@ -85,12 +85,7 @@ protected:
 	std::string getTimestamp() const {
 		time_t current = time(nullptr);
 		struct tm* t = localtime(&current);
-		std::string time = std::to_string(t->tm_year + 1900) + "." +
-			std::to_string(t->tm_mon + 1) + "." +
-			std::to_string(t->tm_mday) + " " +
-			std::to_string(t->tm_hour) + "." +
-			std::to_string(t->tm_min) + "." +
-			std::to_string(t->tm_sec);
+		std::string time = getDay() + "_" + std::to_string(t->tm_sec);
 		return time;
 	}
 
@@ -108,6 +103,8 @@ private:
 	int cnt = 0;
 };
 
+//Children
+//---------------------------------------------------------------------------------------
 
 class InfoLogger : public Logger {
 public:

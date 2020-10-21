@@ -24,5 +24,5 @@ int main() {
 	LOG(ERROR).write("3");
 	LOG(FATAL).write("4");
 	LOG(INFO).showAll();
-	LOG(FATAL).showAll();
+	LOG(FATAL).showAll();	
 }
