@@ -5,7 +5,7 @@
 #include <map>
 #include <stdarg.h>
 #include <fstream>
-#include <experimental/filesystem>
+#include <vector>
 
 enum Level {
 	INFO,
@@ -14,17 +14,32 @@ enum Level {
 	FATAL
 };
 
+
+
 class Logger {
 public:
 	virtual ~Logger() {}
-	Logger(const std::string& f) : filename(f) {
-	}
+	Logger(const std::string& f) : filename(f) {	}
 
 	void write(const std::string& message) {
 		std::ofstream out;
-		out.open(filename, std::ios::app);
-		std::string header = this->getLogLevel() + " " + getTimestamp() + "] ";
-		out << header << message << std::endl;
+		std::string temp = filename + ".log";
+		int i = 1;
+		while (1) {										// 사이즈 limit 이상이면 뒤에 (i)를 붙여서 txt를 새로 만든다.
+			filesize = GetFileSize(temp);
+			if (filesize < limit) {
+				break;
+			}
+			else {
+				std::string tem = "_(" + std::to_string(i) + ").log";
+				temp.replace(temp.end()-4, temp.end(),tem);				
+				++i;
+			}	
+		}
+		out.open(temp, std::ios::app);
+		std::string temp2 = getLogLevel() + location + getTimestamp() + " " + message;
+		out <<temp2 << std::endl;
+		this->information.push_back(temp2);
 		out.close();
 	}
 
@@ -35,10 +50,26 @@ public:
 		return *loggers[level];
 	}
 
-	Logger& setCurrentContext(const std::string& f, int l) {
-		funcname = f;
-		line = l;
+	Logger& setCurrentContext(const std::string& file, const std::string& func, int l) {
+		location = file + " " + func + "_" + "line:" + std::to_string(l) + " ";
+		cnt++;
 		return *this;
+	}
+
+	int GetFileSize(std::string s) {
+		std::ifstream in_file(s, std::ios::binary);
+		in_file.seekg(0, std::ios::end);
+		return in_file.tellg();
+	}
+
+	void show(const std::string& message) {
+		std::cout << this->getLogLevel()<<location<<getTimestamp()<<"] "<<message<< std::endl;
+	}
+
+	void showAll() {		
+		for (int i = 0; i < cnt-1; i++) {
+			std::cout << information[i] << std::endl;
+		}
 	}
 
 protected:
@@ -47,7 +78,8 @@ protected:
 		struct tm* t = localtime(&current);
 		std::string day = std::to_string(t->tm_year + 1900) + "." +
 			std::to_string(t->tm_mon + 1) + "." +
-			std::to_string(t->tm_mday);
+			std::to_string(t->tm_mday) + "_" +
+			std::to_string(t->tm_hour) + "_" + std::to_string(t->tm_min);
 		return day;
 	}
 	std::string getTimestamp() const {
@@ -65,13 +97,15 @@ protected:
 	static void registLogger(Level level, Logger* logger) {
 		loggers[level] = logger;
 	}
+
 private:
 	std::string filename;
-	std::string funcname;
-	int line;
+	std::string location;
+	int filesize;
+	int limit=2000;
+	std::vector<std::string> information;
 	static std::map<Level, Logger*> loggers;
-	Logger(const Logger&) = delete;
-	void operator=(const Logger&) = delete;
+	int cnt = 0;
 };
 
 
@@ -82,12 +116,12 @@ public:
 	}
 
 	std::string getLogLevel() const override {
-		return "INFO";
+		return "INFO_";
 	}
 
 	std::string getFilename() const override {
 		std::string name;
-		name = "INFO_" + getDay() + ".log";
+		name = "INFO_" + getDay();
 		return name;
 	}
 
@@ -97,7 +131,8 @@ public:
 	}
 
 private:
-	std::string name = "INFO";
+	InfoLogger(const InfoLogger&) = delete;
+	void operator=(const InfoLogger&) = delete;
 };
 
 
@@ -109,12 +144,12 @@ public:
 	}
 
 	std::string getLogLevel() const override {
-		return "WARNING";
+		return "WARNING_";
 	}
 
 	std::string getFilename() const override {
 		std::string name;
-		name = "WARNING_" + getDay() + ".log";
+		name = "WARNING_" + getDay();
 		return name;
 	}
 
@@ -124,7 +159,8 @@ public:
 	}
 
 private:
-	std::string name = "WARNING";
+	WarningLogger(const WarningLogger&) = delete;
+	void operator=(const WarningLogger&) = delete;
 };
 
 class ErrorLogger : public Logger {
@@ -134,12 +170,12 @@ public:
 	}
 
 	std::string getLogLevel() const override {
-		return "ERROR";
+		return "ERROR_";
 	}
 
 	std::string getFilename() const override {
 		std::string name;
-		name = "ERROR_" + getDay() + ".log";
+		name = "ERROR_" + getDay();
 		return name;
 	}
 
@@ -149,7 +185,8 @@ public:
 	}
 
 private:
-	std::string name = "ERROR";
+	ErrorLogger(const ErrorLogger&) = delete;
+	void operator=(const ErrorLogger&) = delete;
 };
 
 
@@ -161,12 +198,12 @@ public:
 	}
 
 	std::string getLogLevel() const override {
-		return "FATAL";
+		return "FATAL_";
 	}
 
 	std::string getFilename() const override {
 		std::string fname;
-		fname = "FATAL_" + getDay() + ".log";
+		fname = "FATAL_" + getDay();
 		return fname;
 	}
 
@@ -176,18 +213,7 @@ public:
 	}
 
 private:
-	std::string name = "FATAL";
+	FatalLogger(const FatalLogger&) = delete;
+	void operator=(const FatalLogger&) = delete;
 };
 
-#define LOG(level) (Logger::getLogger(level).setCurrentContext(__func__, __LINE__))
-
-#define INITIALIZE_LOGGERS()				\
-  do {										\
-        InfoLogger::getInstance();			\
-		WarningLogger::getInstance();		\
-		ErrorLogger::getInstance();			\
-		FatalLogger::getInstance();			\
-  } while (0)  
-
-
-std::map<Level, Logger*> Logger::loggers;

@@ -44,8 +44,10 @@ public:
 		std::ofstream out;
 		int i = 1;
 		while (1) {								// 사이즈 1kb 이상이면 뒤에 (i)를 붙여서 txt를 새로 만든다.
-			int sz = GetFileSize(fn);
 			if (sz < 1000) break;
+			sz = GetFileSize(f);
+			std::cout << sz << std::endl;
+			
 			else {
 				fn.replace(15, 10, "");
 				fn += +"(" + std::to_string(i) + ").txt";

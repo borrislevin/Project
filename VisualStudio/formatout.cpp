@@ -1,0 +1,1 @@
+#include <string>#include <iostream>using namespace std;std::string foo(const char* fmt, ...) {	char buf[512];	va_list ptr;	va_start(ptr, fmt);	vsprintf(buf, fmt, ptr);	return buf;}#define FOO(fmt, ...) foo(fmt, __VA_ARGS__)int main() {	int n = 10;	char c = 'A';	std::string s = FOO("hello - %d %c\n", n, c);	cout << s << endl;}
