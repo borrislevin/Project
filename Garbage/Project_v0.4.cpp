@@ -36,7 +36,7 @@ public:
 		vs2.push_back(func);
 		vl.push_back(line);
 		GetLocalTime(&time);
-		fn = std::to_string(year) + '.' + std::to_string(mon) + '.' + std::to_string(day) + "_v0.4_log.txt";
+		fn = std::to_string(year) + '.' + std::to_string(mon) + '.' + std::to_string(day) + "_v0.4_.log";
 		cnt += 1;
 	}
 
@@ -47,7 +47,7 @@ public:
 			int sz = GetFileSize(fn);
 			if (sz < 1000) break;
 			else {
-				fn.replace(19, 10, "");
+				fn.replace(15, 10, "");
 				fn += +"(" + std::to_string(i) + ").txt";
 				++i;
 			}
