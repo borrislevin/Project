@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <fstream>
 #include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 enum Level {
 	INFO,
@@ -23,6 +24,7 @@ public:
 	void write(const std::string& message) {
 		std::ofstream out;
 		out.open(filename, std::ios::app);
+		fs::create_directories("sandbox/1/2/a");
 		std::string header = this->getLogLevel() + " " + getTimestamp() + "] ";
 		out << header << message << std::endl;
 		out.close();
