@@ -15,14 +15,11 @@ std::map<Level, Logger*> Logger::loggers;
 
 
 int main() {
+	int n = 10;	char c = 'A';
 	INITIALIZE_LOGGERS();
-	LOG(INFO).write("1");
-	LOG(INFO).write("1");
-	LOG(INFO).write("1");
-	LOG(INFO).write("1");
-	LOG(WARNING).write("2");
-	LOG(ERROR).write("3");
-	LOG(FATAL).write("4");
-	LOG(INFO).showAll();
-	LOG(FATAL).showAll();	
+	LOG(INFO).write("tetntn");
+	LOG(WARNING).write("tetntn");
+	LOG(ERROR).write("tetntn");
+	LOG(FATAL).write("tetntn");
+	LOG(INFO).write("hello - %d %c", n, c);
 }

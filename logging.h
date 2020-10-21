@@ -6,6 +6,8 @@
 #include <stdarg.h>
 #include <fstream>
 #include <vector>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 enum Level {
 	INFO,
@@ -20,28 +22,39 @@ public:
 	virtual ~Logger() {}
 	Logger(const std::string& f) : filename(f) {	}
 
-	void write(const std::string& message) {
+	void write(const char* fmt, ...) {
 		std::ofstream out;
-		std::string temp = filename + ".log";
-		std::string temp2 = filename + "(1).log";
+		fs::create_directory(getDay());
+		std::string temp = getDay() + "/" + filename + ".log";
 		int i = 1;
-		while (1) {										// 사이즈 limit 이상이면 뒤에 (i)를 붙여서 txt를 새로 만든다.
+		while (1) {										
 			filesize = GetFileSize(temp);
 			if (filesize < limit) {
 				break;
 			}
 			else {
-				std::string tem2 = "_(" + std::to_string(i) + ").log";
-				temp.replace(temp.end() - 4, temp.end(), tem2);
+				std::string temp2 = "_(" + std::to_string(i) + ").log";
+				temp.replace(temp.end() - 4, temp.end(), temp2);
 				++i;
 			}
 		}
 		out.open(temp, std::ios::app);
-		std::string tempinfo = getLogLevel() + location + getTimestamp() + " " + message;
-		out <<tempinfo << std::endl;
-		this->information.push_back(tempinfo);
+		if (!out.is_open()) {
+			std::cout << "로그 저장이 불가능합니다.";
+		}
+
+		std::string tempinfo = getLogLevel() + location + getTimestamp();
+
+		va_list start;
+		va_start(start, fmt);
+
+		char message[128];
+		vsprintf(message, fmt, start);
+		std::string s(message);
+		out << tempinfo << " " << message << std::endl;
 		out.close();
 	}
+
 
 	virtual std::string getLogLevel() const = 0;
 	virtual std::string getFilename() const = 0;
@@ -62,12 +75,12 @@ public:
 		return in_file.tellg();
 	}
 
-	void show(const std::string& message) {				
-		std::cout << this->getLogLevel()<<location<<getTimestamp()<<"] "<<message<< std::endl;
+	void show(const std::string& message) {
+		std::cout << this->getLogLevel() << location << getTimestamp() << "] " << message << std::endl;
 	}
 
-	void showAll() {		
-		for (int i = 0; i < cnt-1; i++) {				
+	void showAll() {
+		for (int i = 0; i < cnt - 1; i++) {
 			std::cout << information[i] << std::endl;
 		}
 	}
@@ -78,14 +91,24 @@ protected:
 		struct tm* t = localtime(&current);
 		std::string day = std::to_string(t->tm_year + 1900) + "." +
 			std::to_string(t->tm_mon + 1) + "." +
-			std::to_string(t->tm_mday) + "_" +
-			std::to_string(t->tm_hour) + "_" + std::to_string(t->tm_min);
+			std::to_string(t->tm_mday);
 		return day;
+	}
+
+	std::string getTime() const {
+		time_t current = time(nullptr);
+		struct tm* t = localtime(&current);
+		std::string ampm;
+		if (t->tm_hour < 12) ampm = "a.m";
+		else ampm = "p.m";
+		std::string time = getDay() + "_" +
+			std::to_string(t->tm_hour) + ampm;
+		return time;
 	}
 	std::string getTimestamp() const {
 		time_t current = time(nullptr);
 		struct tm* t = localtime(&current);
-		std::string time = getDay() + "_" + std::to_string(t->tm_sec);
+		std::string time = getTime() + " " + std::to_string(t->tm_min) + ":" + std::to_string(t->tm_sec);
 		return time;
 	}
 
@@ -97,7 +120,7 @@ private:
 	std::string filename;
 	std::string location;
 	int filesize;
-	int limit=2000;
+	int limit = 2000;
 	std::vector<std::string> information;
 	static std::map<Level, Logger*> loggers;
 	int cnt = 0;
@@ -118,7 +141,7 @@ public:
 
 	std::string getFilename() const override {
 		std::string name;
-		name = "INFO_" + getDay();
+		name = "INFO_" + getTime();
 		return name;
 	}
 
@@ -146,7 +169,7 @@ public:
 
 	std::string getFilename() const override {
 		std::string name;
-		name = "WARNING_" + getDay();
+		name = "WARNING_" + getTime();
 		return name;
 	}
 
@@ -172,7 +195,7 @@ public:
 
 	std::string getFilename() const override {
 		std::string name;
-		name = "ERROR_" + getDay();
+		name = "ERROR_" + getTime();
 		return name;
 	}
 
@@ -200,7 +223,7 @@ public:
 
 	std::string getFilename() const override {
 		std::string fname;
-		fname = "FATAL_" + getDay();
+		fname = "FATAL_" + getTime();
 		return fname;
 	}
 
@@ -213,4 +236,3 @@ private:
 	FatalLogger(const FatalLogger&) = delete;
 	void operator=(const FatalLogger&) = delete;
 };
-
