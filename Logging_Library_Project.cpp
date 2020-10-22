@@ -187,16 +187,30 @@ FatalLogger& FatalLogger::getInstance() {
 int main() {
 	INITIALIZE_LOGGERS();
 	int n = 10;	char c = 'A';
-	LOG(INFO).write("Project Presentation");
-	LOG(INFO).write_each("Project Presentation");
-	LOG(WARNING).write("Project Presentation");
-	LOG(WARNING).write_each("Project Presentation");
-	LOG(ERROR).write("Project Presentation");
-	LOG(ERROR).write_each("Project Presentation");
-	LOG(FATAL).write("Project Presentation");
-	LOG(FATAL).write_each("Project Presentation");
 	LOG(INFO).write("Hello, World! - %d %c", n, c);
-	LOG(INFO).showLogToday();
-	LOG(INFO).showLogOneday();
-	LOG(INFO).write_each("ASDFSDF");
+	//LOG(INFO).write("Project Presentation");
+	//LOG(INFO).write_each("Project Presentation");
+	//LOG(WARNING).write("Project Presentation");
+	//LOG(WARNING).write_each("Project Presentation");
+	//LOG(ERROR).write("Project Presentation");
+	//LOG(ERROR).write_each("Project Presentation");
+	//LOG(FATAL).write("Project Presentation");
+	//LOG(FATAL).write_each("Project Presentation");
+	//LOG(INFO).showLogToday();
+	//LOG(INFO).showLogOneday();
+	//LOG(INFO).write_each("ASDFSDF");	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

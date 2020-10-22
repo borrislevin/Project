@@ -64,7 +64,6 @@ private:
 };
 
 
-// 소스 파일
 std::map<Level, Logger*> Logger::loggers;
 
 
