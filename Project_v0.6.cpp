@@ -2,6 +2,7 @@
 
 #define LOG(level) (Logger::getLogger(level).setCurrentContext(__FILE__,__func__, __LINE__))
 
+
 #define INITIALIZE_LOGGERS()				\
   do {										\
         InfoLogger::getInstance();			\

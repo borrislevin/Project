@@ -25,20 +25,18 @@ public:
 	void write(const char* fmt, ...) {
 		std::ofstream out;
 		fs::create_directory(getDay());
-		std::string temp = getDay() + "/" + filename + ".log";
-		int i = 1;
-		while (1) {										
-			filesize = GetFileSize(temp);
-			if (filesize < limit) {
+		std::string file;
+		int i = 0;
+		std::string temp; 
+		while (1) {
+			temp= getDay() + "/" + filename + "_(" + std::to_string(i) + ").log";
+			if (GetFileSize(temp) < limit)
 				break;
-			}
-			else {
-				std::string temp2 = "_(" + std::to_string(i) + ").log";
-				temp.replace(temp.end() - 4, temp.end(), temp2);
-				++i;
-			}
+			else
+				i++;
 		}
-		out.open(temp, std::ios::app);
+		file = temp;
+		out.open(file, std::ios::app);
 		if (!out.is_open()) {
 			std::cout << "로그 저장이 불가능합니다.";
 		}
@@ -52,6 +50,7 @@ public:
 		vsprintf(message, fmt, start);
 		std::string s(message);
 		out << tempinfo << " " << message << std::endl;
+
 		out.close();
 	}
 
