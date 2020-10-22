@@ -23,6 +23,7 @@ public:
 	virtual ~Logger() {}
 	Logger(const std::string& f) : filename(f) {	}
 	void write(const char* fmt, ...);
+	void wrt(const char* fmt, ...);
 	virtual std::string getLogLevel() const = 0;
 	virtual std::string getFilename() const = 0;
 	static Logger& getLogger(Level level);

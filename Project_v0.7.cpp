@@ -13,8 +13,8 @@
 std::map<Level, Logger*> Logger::loggers;
 
 void Logger::write(const char* fmt, ...) {
-	std::ofstream out;
-	fs::create_directory(getDay());
+	fs::create_directory(getDay()); 
+	std::ofstream out;	
 	std::string file;
 	int i = 0;
 	std::string temp;
@@ -28,7 +28,36 @@ void Logger::write(const char* fmt, ...) {
 	if (!out.is_open()) {
 		std::cout << "로그 저장이 불가능합니다.";
 	}
-	std::string tempinfo = getLogLevel()+"_" + location + getTimestamp();
+	std::string tempinfo = getLogLevel() + "_" + location + getTimestamp();
+	va_list start;
+	va_start(start, fmt);
+	char message[128];
+	vsprintf(message, fmt, start);
+	std::string s(message);
+	out << tempinfo << " " << message << std::endl;
+	out.close();
+}
+void Logger::write_each(const char* fmt, ...) {
+	std::string folder(getDay());
+	std::string each = "//" + getLogLevel();
+	folder.append(each);
+	fs::create_directory(getDay());
+	fs::create_directory(folder);
+	std::ofstream out;
+	std::string file;
+	int i = 0;
+	std::string temp;
+	while (1) {
+		temp = folder + "/" + filename + "_(" + std::to_string(i) + ").log";
+		if (getFileSize(temp) < limit)	break;
+		else	i++;
+	}
+	file = temp;
+	out.open(file, std::ios::app);
+	if (!out.is_open()) {
+		std::cout << "로그 저장이 불가능합니다.";
+	}
+	std::string tempinfo = getLogLevel() + "_" + location + getTimestamp();
 	va_list start;
 	va_start(start, fmt);
 	char message[128];
@@ -58,10 +87,10 @@ void Logger::show(const std::string& message) {
 }
 void Logger::showLogToday() {
 	std::string s = getDay();
-	fs::path p(s);	
+	fs::path p(s);
 	for (const fs::directory_entry& entry :
 		fs::directory_iterator(p)) {
-		std::cout << entry.path() << std::endl;		
+		std::cout << entry.path() << std::endl;
 	}
 }
 void Logger::showLogOneday() {
@@ -70,7 +99,7 @@ void Logger::showLogOneday() {
 	std::cin >> p;
 	if (!std::experimental::filesystem::exists(p))
 		std::cout << "폴더가 존재하지 않습니다!" << std::endl;
-	for (const fs::directory_entry& entry : 
+	for (const fs::directory_entry& entry :
 		fs::directory_iterator(p)) {
 		std::cout << entry.path() << std::endl;
 	}
@@ -103,10 +132,10 @@ std::string Logger::getTimestamp() const {
 void Logger::registLogger(Level level, Logger* logger) {
 	loggers[level] = logger;
 }
-std::string InfoLogger::getLogLevel() const{
+std::string InfoLogger::getLogLevel() const {
 	return "INFO";
 }
-std::string InfoLogger::getFilename() const{
+std::string InfoLogger::getFilename() const {
 	std::string name;
 	name = "INFO_" + getTime();
 	return name;
@@ -116,7 +145,7 @@ InfoLogger& InfoLogger::getInstance() {
 	return instance;
 }
 
-std::string WarningLogger::getLogLevel() const  {
+std::string WarningLogger::getLogLevel() const {
 	return "WARNING";
 }
 std::string WarningLogger::getFilename() const {
@@ -132,7 +161,7 @@ WarningLogger& WarningLogger::getInstance() {
 std::string ErrorLogger::getLogLevel() const {
 	return "ERROR";
 }
-std::string ErrorLogger::getFilename() const{
+std::string ErrorLogger::getFilename() const {
 	std::string name;
 	name = "ERROR_" + getTime();
 	return name;
@@ -156,13 +185,18 @@ FatalLogger& FatalLogger::getInstance() {
 }
 
 int main() {
-	int n = 10;	char c = 'A';
 	INITIALIZE_LOGGERS();
+	int n = 10;	char c = 'A';	
 	LOG(INFO).write("Project Presentation");
+	LOG(INFO).write_each("Project Presentation");
 	LOG(WARNING).write("Project Presentation");
+	LOG(WARNING).write_each("Project Presentation");
 	LOG(ERROR).write("Project Presentation");
+	LOG(ERROR).write_each("Project Presentation");
 	LOG(FATAL).write("Project Presentation");
+	LOG(FATAL).write_each("Project Presentation");
 	LOG(INFO).write("Hello, World! - %d %c", n, c);
 	LOG(INFO).showLogToday();
 	LOG(INFO).showLogOneday();
+	LOG(INFO).write_each("ASDFSDF");
 }
